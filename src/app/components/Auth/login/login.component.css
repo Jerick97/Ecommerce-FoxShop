@@ -1,0 +1,14 @@
+.correct {
+    outline: 0;
+    border-bottom: 1px solid greenyellow;
+}
+.error {
+    outline: 0;
+    border-bottom: 1px solid red;
+}
+input.correct:focus {
+    border-bottom: 1px solid greenyellow;
+}
+input.error:focus {
+    border-bottom: 1px solid red;
+}
