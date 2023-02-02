@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, user } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, getAuth } from '@angular/fire/auth';
 import { addDoc, collection, deleteDoc, doc, getDocs, query, where  } from 'firebase/firestore';
 import { Firestore } from '@angular/fire/firestore';
 import { Roles, Users } from '../interfaces/users';
-import { async } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class AutenticarService {
-  public adminUser :boolean = false; //almacena si es admin true o false
-  public emailUser !:string; //el email del usuario que inicio sesión
-  public nameUser !:string; //el name del Usuario que inicio sesión
+  public userInfo: any;
 
   constructor(private auth:Auth , private fireStore:Firestore) { }
   
@@ -22,7 +19,6 @@ export class AutenticarService {
   async login({email,password}:any){
     return signInWithEmailAndPassword(this.auth, email, password)
       .then(({user}) => {
-        this.getUserData(user.uid);
         return user;
       })
       .catch(error => {
@@ -32,9 +28,6 @@ export class AutenticarService {
   }
 
   logout(){
-    this.adminUser = false;
-    this.emailUser = '';
-    this.nameUser = '';
     return signOut(this.auth); // para cerrar sesión.
   }
 
@@ -63,7 +56,7 @@ export class AutenticarService {
   }
 
   //Consultas Simples Firebase para obtener la información del usuario que inicia sesión
-  async getUserData(uid:string){
+  /*async getUserData(uid:string){
     const q = query(collection(this.fireStore, "Usuarios"), where("uid", "==", uid));
 
     const querySnapshot = await getDocs(q);
@@ -71,17 +64,43 @@ export class AutenticarService {
     querySnapshot.forEach((doc) => {
       userData.push({...doc.data()});
     });
-    this.isAdmin(userData)
     return userData;
-  }
+  }*/
 
   //Este método retorna true si el usuario tiene rol de Admin y false de lo contrario
-
-  isAdmin(userData: any) {
+  /*sAdmin(userData: any) {
     const [{ roles , email, name}] = userData;
-    const rol = roles.admin === true ? true : false; //si tiene el rol admin actualiza el valor de adminUser
-    this.adminUser = rol; //esto nos ayuda a saber si el usuario es admin
-    this.emailUser = email; //el email del que inicio sesión
-    this.nameUser = name; //el nombre del que inicio sesión
+    const rol = roles.admin === true ? true : false;
+    this.userInfo = JSON.stringify({email, name, rol});
+  }*/
+
+  StatusUser(){
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if (user !== null) {
+      return true
+    }
+    return false
   }
+
+  async getDatosUser() {
+    const auth = getAuth();
+    const user = auth.currentUser;
+  
+    if (user !== null) {
+      const path = 'Usuarios';
+      const id = user.uid;
+      const usuariosRef = collection(this.fireStore, path);
+      const q = query(usuariosRef, where("uid", "==", id));
+      const querySnapshot = await getDocs(q);
+      let userData: any[] = [];
+      querySnapshot.forEach((doc) => {
+        userData.push(doc.data());
+      });
+      return userData
+    } else {
+      return false;
+    }
+  }
+
 }

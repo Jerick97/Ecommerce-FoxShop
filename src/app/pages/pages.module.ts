@@ -3,18 +3,29 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
 import { SharedModule } from '../shared/shared.module';
 import { ComponentsModule } from '../components/components.module';
+import { ProductosComponent } from './productos/productos.component';
+import { DetalleComponent } from './detalle/detalle.component';
+import { RouterModule } from '@angular/router';
+import { PedidosComponent } from './pedidos/pedidos.component';
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
+    ProductosComponent,
+    DetalleComponent,
+    PedidosComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
-    ComponentsModule
+    ComponentsModule,
+    RouterModule
   ],
   exports:[
-    HomeComponent
+    HomeComponent,
+    ProductosComponent,
+    DetalleComponent,
+    PedidosComponent
   ]
 })
 export class PagesModule { }

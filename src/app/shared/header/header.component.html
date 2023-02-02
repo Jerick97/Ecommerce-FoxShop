@@ -10,9 +10,14 @@
     </div>
     <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto" [ngClass]="{'hidden': !showMenu, 'block': showMenu, 'lg:block': !showMenu}">
       <div class="text-sm lg:flex-grow">
+        <!--Area del Visitante - Bloquear cuando soluciones el Rol Usuarios-->
         <a [routerLink]="['/home']" routerLinkActive="border-b-4" ariaCurrentWhenActive="page" [routerLinkActiveOptions]="{exact: true}" class=" hover:cursor-pointer hover:border-b-4 block mt-4 lg:inline-block lg:mt-0 text-white font-bold hover:text-white mr-4">
           Inicio
         </a>
+        <a [routerLink]="['/productos']" routerLinkActive="border-b-4" ariaCurrentWhenActive="page" [routerLinkActiveOptions]="{exact: true}" class="hover:cursor-pointer hover:border-b-4 block mt-4 lg:inline-block lg:mt-0 text-white font-bold hover:text-white mr-4">
+          Productos
+        </a>
+        <!--Area del Administrador - Bloquear cuando soluciones el Rol Usuarios-->
         <a [routerLink]="['/registrar-producto']" routerLinkActive="border-b-4" ariaCurrentWhenActive="page" [routerLinkActiveOptions]="{exact: true}" class=" hover:cursor-pointer hover:border-b-4 block mt-4 lg:inline-block lg:mt-0 text-white font-bold hover:text-white mr-4">
           Registrar Producto
         </a>
@@ -24,8 +29,8 @@
         <a (click)="Logout()" class="block mt-4 lg:inline-block lg:mt-0 text-white font-bold hover:text-white mr-4 hover:cursor-pointer hover:border-b-4">
           Cerrar Sesión
         </a>
-        <p class="block mt-4 lg:inline-block lg:mt-0 text-white font-bold hover:text-white mr-4 hover:cursor-pointer hover:border-b-4">
-          Bienvenido {{username}}
+        <p  class="block mt-4 lg:inline-block lg:mt-0 text-white font-bold hover:text-white mr-4">
+          Bienvenido 
         </p>
     </div>
     </div>

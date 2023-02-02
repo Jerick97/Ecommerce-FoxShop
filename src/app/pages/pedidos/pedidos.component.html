@@ -1,0 +1,73 @@
+<app-header></app-header>
+<div class="container mx-auto mt-6">
+    <h1 class="text-center text-4xl text-pink-800 font-bold">Mis Pedidos</h1>
+    <button (click)="eliminarPedidos()" class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded">
+        Eliminar Pedidos
+    </button>
+      
+    <div class="flex flex-col">
+        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="py-4 inline-block min-w-full sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+              <table class="min-w-full text-center">
+                <thead class="border-b bg-gray-800">
+                  <tr>
+                    <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                      Item
+                    </th>
+                    <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                      Producto
+                    </th>
+                    <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                      Costo
+                    </th>
+                    <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                        Oferta
+                      </th>
+                    <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                      Cantidad
+                    </th>
+                    <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                        Costo Total
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="bg-white border-b" *ngFor="let pedido of pedidos; index as i">
+                    
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{i + 1}}</td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        {{pedido.name}}
+                    </td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        {{pedido.costo | currency:'S/.'}}
+                    </td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        {{pedido.oferta | currency:'S/.'}}
+                    </td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        {{pedido.cantidad}}
+                    </td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        {{pedido.costoTotal | currency:'S/.'}}
+                    </td>
+                  </tr>
+                  
+                  <tr class="bg-white border-b">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"></td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"></td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"></td>
+                    <td colspan="2" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap text-center">
+                      Total
+                    </td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        {{total | currency:'S/.'}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>

@@ -8,13 +8,17 @@ import { AutenticarService } from 'src/app/services/autenticar.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  username !: string;
+  
+  usuario : any;
   public showMenu : boolean = true;
-  constructor(private usuariosService:AutenticarService, private router:Router) { }
+  constructor(private usuariosService:AutenticarService, private router:Router) { 
+    if(this.usuariosService.StatusUser()){
+      this.usuario = this.usuariosService.getDatosUser();
+    }
+  }
 
   ngOnInit(): void {
-    this.username = this.usuariosService.nameUser;
-    console.log(this.username)
+    console.log(this.usuario)
   }
 
   toggle(){
@@ -26,6 +30,4 @@ export class HeaderComponent implements OnInit {
     this.usuariosService.logout();
     this.router.navigate(['/login']); //redirigimos al login
   }
-
-
 }

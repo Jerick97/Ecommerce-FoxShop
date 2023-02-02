@@ -15,8 +15,8 @@
                 <img class="h-32 w-32 rounded-full shadow-2xl" src="{{prod.foto}}" alt="Img">
                 <p class="mt-3 text-gray-600 text-center" [ngClass]="{'line-through': +prod.oferta > 0}">Precio : {{prod.costo | currency : 'S/.'}}</p>
                 <p *ngIf="+prod.oferta > 0" class="mt-3 text-red-500 text-center font-bold">Oferta : {{prod.oferta | currency : 'S/.'}}</p>
-                <button class="mt-4 mb-2 bg-pink-800 rounded-full px-12 py-1 text-gray-100 font-semibold hover:bg-teal-300 focus:outline-none">Añadir Carrito</button>
-                <button class="mt-4 mb-2 bg-pink-800 rounded-full px-12 py-1 text-gray-100 font-semibold hover:bg-teal-300 focus:outline-none">Ver Más</button>
+                <button (click)="toggleModal();addCarrito(prod.producto,prod.costo,prod.oferta)" class="mt-4 mb-2 bg-pink-800 rounded-full px-12 py-1 text-gray-100 font-semibold hover:bg-pink-400 focus:outline-none"><i class="bi bi-cart"></i> Añadir Carrito</button>
+                <button (click)="verDetalle(prod.id)" class="mt-4 mb-2 bg-pink-800 rounded-full px-12 py-1 text-gray-100 font-semibold hover:bg-pink-400 focus:outline-none"><i class="bi bi-search"></i> Ver Más</button>
             </div>
         </div>
         
@@ -24,4 +24,41 @@
         
     </div>
 
+</div>
+
+<!--Modal-->
+<div>
+    <div *ngIf="showModal"
+        class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+        <div class="relative w-96 my-6 mx-auto max-w-6xl">
+            <!--content-->
+            <div
+                class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <!--header-->
+                <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                    <h3 class="text-3xl font-semibold"> Carrito de Compras </h3> <button
+                        class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                        (click)="toggleModal()"> <span
+                            class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                            <i class="bi bi-x-circle"></i></span> </button>
+                </div>
+                <!--body-->
+                <div class="relative p-6 flex-auto">
+                    <form class="space-y-6" autocomplete="off">
+                        <div>
+                            <label for="cantidad" class="block mb-2 text-sm font-medium text-gray-90">Cantidad</label>
+                            <input [(ngModel)]="cantidad" type="number" name="cantidad" id="cantidad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="0">
+                        </div>
+                    </form>
+                </div>
+                <!--footer-->
+                <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b"> <button
+                        class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-800 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        type="button" (click)="toggleModal()"> Cancelar </button> <button (click)="guardarCarrito(cantidad)"
+                        class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        type="button"> Comprar </button> </div>
+                </div>
+        </div>
+    </div>
+    <div *ngIf="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
 </div>

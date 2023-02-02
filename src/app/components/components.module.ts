@@ -34,7 +34,8 @@ import { CardProductoComponent } from './Productos/card-producto/card-producto.c
     LoginComponent,
     RegistroProductoComponent,
     AdministrarProductoComponent,
-    CarruselComponent
+    CarruselComponent,
+    CardProductoComponent
   ]
 })
 export class ComponentsModule { }
